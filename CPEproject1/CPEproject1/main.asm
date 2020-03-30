@@ -1,0 +1,60 @@
+;
+; CPEproject1.asm
+;
+; Created: 2020-03-30 14:16:05
+; Author : Sithija Gunasinghe
+;
+
+
+LDI R16, 0
+LDI R17, 0xFF
+LDI R18, 0x20
+SBI DDRE,4
+CBI PORTE,4
+CBI DDRA,0
+CBI DDRA,1
+SBI PORTA,0
+SBI PORTA,1
+OUT DDRD, R17
+OUT PORTC, R16
+//INPUT
+
+START:	SBIC PINA,0 //positive button
+		INC R16
+		CP R16, R18
+		BRSH RESET
+		OUT DDRD, R16
+		RCALL CLEAR
+		SBIC PINA,1 //negative button
+		DEC R16
+		BRLT RESET
+		RCALL CLEAR
+		OUT DDRD, R16
+		RJMP START
+RESET:	CPSE R16, R18
+		LDI R16, 0x1F
+		LDI R16, 0
+		LDI R21, 100
+	L2:	SBI PORTE, 4 // Sound loop
+		RCALL DELAY
+		NOP
+		NOP
+		CBI PORTE, 4
+		RCALL DELAY
+		DEC R21
+		BRNE L2
+CLEAR:	CLH	
+		CLC
+		CLS
+		CLN
+		CLZ
+		RET
+DELAY:	LDI R19,11 // 500 microsecond delay for 1kHz frequency
+		LDI R20,99
+	L1: DEC R20
+		BRNE L1
+		DEC R19
+		BRNE L1
+		RET
+
+
