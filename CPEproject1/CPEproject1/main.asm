@@ -23,18 +23,18 @@ START:	SBIC PINA,0 // positive button
 		INC R16 	;increments R16 when positive button is pressed
 		CP R16, R18	
 		BRSH RESET	;calls Reset if R16 is greater than or equal to R18
-		OUT DDRD, R16	;what does this do? did you mean PORTD instead of DDRD?
+		OUT PORTD, R16	;refresh the binary output
 		RCALL CLEAR	;calls clear to clear all relevant status registers
 		SBIC PINA,1 //negative button
 		DEC R16		;decrements R16 when negative button is pressed
 		BRLT RESET	;calls Reset if R16 is less than 0
 		RCALL CLEAR	;calls clear to clear all relevant status registers
-		OUT DDRD, R16	;what does this do? did you mean PORTD instead of DDRD?
+		OUT PORTD, R16	;refresh the binary output
 		RJMP START	;jumps to the beginning of the input loop
 
 RESET:	CPSE R16, R18
-		LDI R16, 0x1F	;if R16 is not equal to R18 sets R16 to 0x1F --what is this for?
-		LDI R16, 0	;sets R16 ti 0
+		LDI R16, 0x1F	;sets value to 31 if overflowed from 0
+		LDI R16, 0	;sets R16 to 0 if overflowed from 31
 		LDI R21, 100	;value to loop sound 100 times
 	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
 		RCALL DELAY 	
