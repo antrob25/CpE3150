@@ -2,7 +2,7 @@
 ; CPEproject1.asm
 ;
 ; Created: 2020-03-30 14:16:05
-; Author : Sithija Gunasinghe
+; Author : Sithija Gunasinghe, Anthony Robles, Dan Napierkowski, Cade Johnstone
 ;
 
 
@@ -31,6 +31,7 @@ START:	SBIC PINA,0 // positive button
 		RCALL CLEAR	;calls clear to clear all relevant status registers
 		OUT DDRD, R16	;what does this do? did you mean PORTD instead of DDRD?
 		RJMP START	;jumps to the beginning of the input loop
+
 RESET:	CPSE R16, R18
 		LDI R16, 0x1F	;if R16 is not equal to R18 sets R16 to 0x1F --what is this for?
 		LDI R16, 0	;sets R16 ti 0
@@ -43,19 +44,28 @@ RESET:	CPSE R16, R18
 		RCALL DELAY
 		DEC R21		
 		BRNE L2		;Loops until R21 = 0 
-		;RET here?
+		RET
+
 CLEAR:	CLH	
 		CLC
 		CLS
 		CLN
 		CLZ
 		RET
-DELAY:	LDI R19,11 // 500 microsecond delay for 1kHz frequency
-		LDI R20,99
-	L1: DEC R20
+
+DELAY:	LDI R19,10 // 500 microsecond delay for 1kHz frequency
+		LDI R20,199
+	L1: NOP
+		DEC R20
 		BRNE L1
 		DEC R19
 		BRNE L1
+		NOP
+		NOP
+		NOP
+		NOP
+		NOP
+		NOP
 		RET
 
 
