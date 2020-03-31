@@ -54,12 +54,12 @@ CLEAR:	CLH
 		RET
 
 DELAY:	LDI R19,10 // 500 microsecond delay for 1kHz frequency
-		LDI R20,199
+	L3:	LDI R20,199
 	L1: NOP
 		DEC R20
 		BRNE L1
 		DEC R19
-		BRNE L1
+		BRNE L3
 		NOP
 		NOP
 		NOP
