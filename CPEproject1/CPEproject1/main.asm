@@ -16,10 +16,8 @@ CBI DDRE,5	;makes PE5 an input
 SBI PORTE,5	;set bit PE5
 SBI DDRE,6	;makes PE6 an input
 SBI PORTE,6	;set bit PE6
-CBI DDRA,0	;makes PA0 an input
-CBI DDRA,1	;makes PA1 an input
-SBI PORTA,0	;set bit PA0
-SBI PORTA,1	;set bit PA1
+OUT DDRA, R16
+OUT PORTA, R17
 OUT DDRA,R16
 OUT PORTA,R17
 OUT DDRD,R17	;Sets PortD as output
@@ -27,6 +25,24 @@ OUT PORTD,R17
 OUT PORTC,R16	;PORTC = 0
 
 //INPUT
+RCALL BEEP //Beep to indicate when to press the starting button
+    LDI  R23, 2 //Delay for approximately 5 seconds
+    LDI  R24, 150
+    LDI  R25, 216
+    LDI  R26, 8
+L1: DEC  R26
+    BRNE L1
+    DEC  R25
+    BRNE L1
+    DEC  R24
+	BRNE L1
+    DEC  R23
+    BRNE L1
+    NOP
+	IN R19, PINA //input the number using PINA2-6
+	LSR R19 //Shift right to accurately show the numbers starting from the 0th bit
+	LSR R19
+
 START:	
 	CHECK_SW1:
 		SBIC PINA,0 // positive button
@@ -48,7 +64,7 @@ START:
 RESET:	CPSE R19, R18
 		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
 		LDI R19, 0	;sets R19 to 0
-		LDI R22, 100	;value to loop sound 100 times
+BEEP:	LDI R22, 100	;value to loop sound 100 times
 	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
 		RCALL DELAY 	
 		NOP
