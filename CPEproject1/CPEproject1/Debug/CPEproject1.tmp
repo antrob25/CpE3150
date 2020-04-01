@@ -1,18 +1,18 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.7</VERSION>
  <DEVICE>"ATmega324PB"</DEVICE>
- <WORKING_DIR>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\Debug</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc</DIR>
-  <DIR>D:\Programs\Atmel\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\Debug\CPEproject1.obj</FILE>
+  <FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\Debug\CPEproject1.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>CPEproject1.hex</FILE>
@@ -22,15 +22,19 @@
   <FILE>CPEproject1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <START><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>30</LINE></START>
-  <CHECK_SW1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>31</LINE></CHECK_SW1>
-  <RESET><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>48</LINE></RESET>
-  <OUTPUT_DISPLAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>84</LINE></OUTPUT_DISPLAY>
-  <CLEAR><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>62</LINE></CLEAR>
-  <CHECK_SW2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>40</LINE></CHECK_SW2>
-  <L2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>52</LINE></L2>
-  <DELAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>69</LINE></DELAY>
-  <L3><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>70</LINE></L3>
-  <L1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>71</LINE></L1>
+  <BEEP><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>71</LINE></BEEP>
+  <CLEAR><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>82</LINE></CLEAR>
+  <START><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>45</LINE></START>
+  <CHECK_SW1><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>46</LINE></CHECK_SW1>
+  <RESET1><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>63</LINE></RESET1>
+  <BACK1><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>51</LINE></BACK1>
+  <OUTPUT_DISPLAY><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>104</LINE></OUTPUT_DISPLAY>
+  <CHECK_SW2><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>55</LINE></CHECK_SW2>
+  <RESET2><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>67</LINE></RESET2>
+  <BACK2><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>60</LINE></BACK2>
+  <L2><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>72</LINE></L2>
+  <DELAY><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>89</LINE></DELAY>
+  <L3><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>90</LINE></L3>
+  <L1><FILE>C:\Users\Spark\Documents\GitHub\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>91</LINE></L1>
  </LABELS>
 </ASSEMBLER_INFO>
