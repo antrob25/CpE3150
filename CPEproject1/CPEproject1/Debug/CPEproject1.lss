@@ -1,8 +1,8 @@
 
-AVRASM ver. 2.2.7  C:\Users\Spark\OneDrive - University of Missouri\Classes\Microcontrollers\CPEproject1\CPEproject1\main.asm Mon Mar 30 14:16:41 2020
+AVRASM ver. 2.2.7  D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm Tue Mar 31 19:09:03 2020
 
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
-[builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
+[builtin](2): Including file 'D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
+[builtin](2): Including file 'D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
                                  
                                  ;
                                  
@@ -1622,58 +1622,112 @@ AVRASM ver. 2.2.7  C:\Users\Spark\OneDrive - University of Missouri\Classes\Micr
                                  ; CPEproject1.asm
                                  ;
                                  ; Created: 2020-03-30 14:16:05
-                                 ; Author : Sithija Gunasinghe
+                                 ; Author : Sithija Gunasinghe, Anthony Robles, Dan Napierkowski, Cade Johnstone
                                  ;
                                  
                                  
 000000 e000                      LDI R16, 0
 000001 ef1f                      LDI R17, 0xFF
-000002 e220                      LDI R18, 0x20
-000003 9a6c                      SBI DDRE,4
-000004 9874                      CBI PORTE,4
-000005 9808                      CBI DDRA,0
-000006 9809                      CBI DDRA,1
-000007 9a10                      SBI PORTA,0
-000008 9a11                      SBI PORTA,1
-000009 b91a                      OUT DDRD, R17
-00000a b908                      OUT PORTC, R16
-00000b 9900                      START:	SBIC PINA,0 //positive button
-00000c 9503                      		INC R16
-00000d 1702                      		CP R16, R18
-00000e f440                      		BRSH RESET
-00000f b90a                      		OUT DDRD, R16
-000010 d012                      		RCALL CLEAR
-000011 9901                      		SBIC PINA,1 //negative button
-000012 950a                      		DEC R16
-000013 f01c                      		BRLT RESET
-000014 d00e                      		RCALL CLEAR
-000015 b90a                      		OUT DDRD, R16
-000016 cff4                      		RJMP START
-000017 1302                      RESET:	CPSE R16, R18
-000018 e10f                      		LDI R16, 0x1F
-000019 e000                      		LDI R16, 0
-00001a e654                      		LDI R21, 100
-00001b 9a74                      	L2:	SBI PORTE, 4 // Sound loop
-00001c d00c                      		RCALL DELAY
-00001d 0000                      		NOP
-00001e 0000                      		NOP
-00001f 9874                      		CBI PORTE, 4
-000020 d008                      		RCALL DELAY
-000021 955a                      		DEC R21
-000022 f7c1                      		BRNE L2
-000023 94d8                      CLEAR:	CLH	
-000024 9488                      		CLC
-000025 94c8                      		CLS
-000026 94a8                      		CLN
-000027 9498                      		CLZ
-000028 9508                      		RET
-000029 e03b                      DELAY:	LDI R19,11 // 500 microsecond delay for 1kHz frequency
-00002a e643                      		LDI R20,99
-00002b 954a                      	L1: DEC R20
-00002c f7f1                      		BRNE L1
-00002d 953a                      		DEC R19
-00002e f7e1                      		BRNE L1
-00002f 9508                      		RET
+000002 e12f                      LDI R18, 0x1F
+000003 e030                      LDI R19, 0
+000004 9a6c                      SBI DDRE,4	;makes PE4 an output
+000005 9874                      CBI PORTE,4	;clears bit PE4
+000006 986d                      CBI DDRE,5	;makes PE5 an input
+000007 9a75                      SBI PORTE,5	;set bit PE5
+000008 9a6e                      SBI DDRE,6	;makes PE6 an input
+000009 9a76                      SBI PORTE,6	;set bit PE6
+00000a 9808                      CBI DDRA,0	;makes PA0 an input
+00000b 9809                      CBI DDRA,1	;makes PA1 an input
+00000c 9a10                      SBI PORTA,0	;set bit PA0
+00000d 9a11                      SBI PORTA,1	;set bit PA1
+00000e b901                      OUT DDRA,R16
+00000f b912                      OUT PORTA,R17
+000010 b91a                      OUT DDRD,R17	;Sets PortD as output
+000011 b91b                      OUT PORTD,R17	
+000012 b908                      OUT PORTC,R16	;PORTC = 0
+                                 
+                                 //INPUT
+                                 START:	
+                                 	CHECK_SW1:
+000013 9900                      		SBIC PINA,0 // positive button
+000014 9533                      		INC R19 	;increments R19 when positive button is pressed
+000015 1732                      		CP R19, R18	
+000016 f458                      		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
+000017 940e 0043                 		CALL OUTPUT_DISPLAY	
+000019 d015                      		RCALL CLEAR	;calls clear to clear all relevant status registers
+00001a c000                      		RJMP CHECK_SW2
+                                 
+                                 	CHECK_SW2:
+00001b 9901                      		SBIC PINA,1 //negative button
+00001c 953a                      		DEC R19		;decrements R19 when negative button is pressed
+00001d f024                      		BRLT RESET	;calls Reset if R19 is less than 0
+00001e d010                      		RCALL CLEAR	;calls clear to clear all relevant status registers
+00001f 940e 0043                 		CALL OUTPUT_DISPLAY	
+000021 cff1                      		RJMP START	;jumps to the beginning of the input loop
+                                 
+000022 1332                      RESET:	CPSE R19, R18
+000023 e13f                      		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
+000024 e030                      		LDI R19, 0	;sets R19 to 0
+000025 e664                      		LDI R22, 100	;value to loop sound 100 times
+000026 9a74                      	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
+000027 d00d                      		RCALL DELAY 	
+000028 0000                      		NOP
+000029 0000                      		NOP
+00002a 9874                      		CBI PORTE, 4	;clears PE4 -- ends sound
+00002b d009                      		RCALL DELAY
+00002c 956a                      		DEC R22		
+00002d f7c1                      		BRNE L2		;Loops until R22 = 0 
+00002e 9508                      		RET
+                                 
+00002f 94d8                      CLEAR:	CLH	
+000030 9488                      		CLC
+000031 94c8                      		CLS
+000032 94a8                      		CLN
+000033 9498                      		CLZ
+000034 9508                      		RET
+                                 
+000035 e04a                      DELAY:	LDI R20,10 // 500 microsecond delay for 1kHz frequency  
+000036 ec57                      	L3:	LDI R21,199
+000037 0000                      	L1: NOP
+000038 955a                      		DEC R21
+000039 f7e9                      		BRNE L1
+00003a 954a                      		DEC R20
+00003b f7d1                      		BRNE L3
+00003c 0000                      		NOP
+00003d 0000                      		NOP
+00003e 0000                      		NOP
+00003f 0000                      		NOP
+000040 0000                      		NOP
+000041 0000                      		NOP
+000042 9508                      		RET
+                                 
+                                 OUTPUT_DISPLAY:
+000043 fd30                      	SBRC R19, 0
+000044 9875                      	CBI PORTE,5
+000045 ff30                      	SBRS R19, 0
+000046 9a75                      	SBI PORTE,5
+                                 
+000047 fd31                      	SBRC R19, 1
+000048 985b                      	CBI PORTD,3
+000049 ff31                      	SBRS R19, 1
+00004a 9a5b                      	SBI PORTD,3
+                                 
+00004b fd32                      	SBRC R19, 2
+00004c 985a                      	CBI PORTD,2
+00004d ff32                      	SBRS R19, 2
+00004e 9a5a                      	SBI PORTD,2
+                                 
+00004f fd33                      	SBRC R19, 3
+000050 9859                      	CBI PORTD,1
+000051 ff33                      	SBRS R19, 3
+000052 9a59                      	SBI PORTD,1
+                                 
+000053 fd34                      	SBRC R19, 4
+000054 9858                      	CBI PORTD,0
+000055 ff34                      	SBRS R19, 4
+000056 9a58                      	SBI PORTD,0
+                                 
+000057 9508                      	RET
                                  
                                  
 
@@ -1695,10 +1749,10 @@ counted separately from r26..r31 here.
 "ATmega324PB" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  10 r17:   2 r18:   3 r19:   2 r20:   2 
-r21:   2 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:   3 r17:   4 r18:   3 r19:  17 r20:   2 
+r21:   2 r22:   2 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 6 out of 35 (17.1%)
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega324PB" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
@@ -1706,26 +1760,26 @@ andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   1 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   4 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   2 cbi   :  10 cbr   :   0 
 clc   :   1 clh   :   1 cli   :   0 cln   :   1 clr   :   0 cls   :   1 
 clt   :   0 clv   :   0 clz   :   1 com   :   0 cp    :   1 cpc   :   0 
 cpi   :   0 cpse  :   1 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :   8 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :   9 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   2 or    :   0 ori   :   0 out   :   4 pop   :   0 
-push  :   0 rcall :   4 ret   :   2 reti  :   0 rjmp  :   1 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   4 sbic  :   2 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
+neg   :   0 nop   :   9 or    :   0 ori   :   0 out   :   5 pop   :   0 
+push  :   0 rcall :   4 ret   :   4 reti  :   0 rjmp  :   2 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :  12 sbic  :   2 sbis  :   0 
+sbiw  :   0 sbr   :   0 sbrc  :   5 sbrs  :   5 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 21 out of 113 (18.6%)
+Instructions used: 24 out of 113 (21.2%)
 
 "ATmega324PB" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000060     96      0     96   32768   0.3%
+[.cseg] 0x000000 0x0000b0    176      0    176   32768   0.5%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
