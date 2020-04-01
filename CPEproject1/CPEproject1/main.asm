@@ -16,10 +16,6 @@ CBI DDRE,5	;makes PE5 an input
 SBI PORTE,5	;set bit PE5
 SBI DDRE,6	;makes PE6 an input
 SBI PORTE,6	;set bit PE6
-CBI DDRA,0	;makes PA0 an input
-CBI DDRA,1	;makes PA1 an input
-SBI PORTA,0	;set bit PA0
-SBI PORTA,1	;set bit PA1
 OUT DDRA,R16
 OUT PORTA,R17
 OUT DDRD,R17	;Sets PortD as output
@@ -41,9 +37,14 @@ START:
 		SBIC PINA,1 //negative button
 		DEC R19		;decrements R19 when negative button is pressed
 		BRLT RESET	;calls Reset if R19 is less than 0
+		CALL OUTPUT_DISPLAY
 		RCALL CLEAR	;calls clear to clear all relevant status registers
-		CALL OUTPUT_DISPLAY	
-		RJMP START	;jumps to the beginning of the input loop
+		RJMP CHECK_SW3	;jumps to the beginning of the input loop
+
+	CHECK_SW3:
+		SBIC PINA, 2
+		CALL TESTER
+		RJMP START
 
 RESET:	CPSE R19, R18
 		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
@@ -108,5 +109,21 @@ OUTPUT_DISPLAY:
 	SBI PORTD,0
 
 	RET
+
+TESTER: // Inputs an intial count and displays it using the positive and negative counters
+	LDI R31, 7
+	INC_LOOP: 
+		INC R19
+		DEC R31
+		BRNE INC_LOOP
+		DEC R19
+		DEC R19
+		DEC R19
+		CALL OUTPUT_DISPLAY
+		RET
+
+			
+			
+		
 
 

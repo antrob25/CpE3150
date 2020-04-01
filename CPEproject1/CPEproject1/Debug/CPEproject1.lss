@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm Tue Mar 31 19:09:03 2020
+AVRASM ver. 2.2.7  D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm Wed Apr 01 17:54:39 2020
 
 [builtin](2): Including file 'D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
 [builtin](2): Including file 'D:/Programs\Atmel\7.0\Packs\Atmel\ATmega_DFP\1.4.351\avrasm\inc\m324PBdef.inc'
@@ -1636,34 +1636,35 @@ AVRASM ver. 2.2.7  D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm Tue 
 000007 9a75                      SBI PORTE,5	;set bit PE5
 000008 9a6e                      SBI DDRE,6	;makes PE6 an input
 000009 9a76                      SBI PORTE,6	;set bit PE6
-00000a 9808                      CBI DDRA,0	;makes PA0 an input
-00000b 9809                      CBI DDRA,1	;makes PA1 an input
-00000c 9a10                      SBI PORTA,0	;set bit PA0
-00000d 9a11                      SBI PORTA,1	;set bit PA1
-00000e b901                      OUT DDRA,R16
-00000f b912                      OUT PORTA,R17
-000010 b91a                      OUT DDRD,R17	;Sets PortD as output
-000011 b91b                      OUT PORTD,R17	
-000012 b908                      OUT PORTC,R16	;PORTC = 0
+00000a b901                      OUT DDRA,R16
+00000b b912                      OUT PORTA,R17
+00000c b91a                      OUT DDRD,R17	;Sets PortD as output
+00000d b91b                      OUT PORTD,R17	
+00000e b908                      OUT PORTC,R16	;PORTC = 0
                                  
                                  //INPUT
                                  START:	
                                  	CHECK_SW1:
-000013 9900                      		SBIC PINA,0 // positive button
-000014 9533                      		INC R19 	;increments R19 when positive button is pressed
-000015 1732                      		CP R19, R18	
-000016 f458                      		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
-000017 940e 0043                 		CALL OUTPUT_DISPLAY	
-000019 d015                      		RCALL CLEAR	;calls clear to clear all relevant status registers
-00001a c000                      		RJMP CHECK_SW2
+00000f 9900                      		SBIC PINA,0 // positive button
+000010 9533                      		INC R19 	;increments R19 when positive button is pressed
+000011 1732                      		CP R19, R18	
+000012 f478                      		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
+000013 940e 0043                 		CALL OUTPUT_DISPLAY	
+000015 d019                      		RCALL CLEAR	;calls clear to clear all relevant status registers
+000016 c000                      		RJMP CHECK_SW2
                                  
                                  	CHECK_SW2:
-00001b 9901                      		SBIC PINA,1 //negative button
-00001c 953a                      		DEC R19		;decrements R19 when negative button is pressed
-00001d f024                      		BRLT RESET	;calls Reset if R19 is less than 0
-00001e d010                      		RCALL CLEAR	;calls clear to clear all relevant status registers
-00001f 940e 0043                 		CALL OUTPUT_DISPLAY	
-000021 cff1                      		RJMP START	;jumps to the beginning of the input loop
+000017 9901                      		SBIC PINA,1 //negative button
+000018 953a                      		DEC R19		;decrements R19 when negative button is pressed
+000019 f044                      		BRLT RESET	;calls Reset if R19 is less than 0
+00001a 940e 0043                 		CALL OUTPUT_DISPLAY
+00001c d012                      		RCALL CLEAR	;calls clear to clear all relevant status registers
+00001d c000                      		RJMP CHECK_SW3	;jumps to the beginning of the input loop
+                                 
+                                 	CHECK_SW3:
+00001e 9902                      		SBIC PINA, 2
+00001f 940e 0058                 		CALL TESTER
+000021 cfed                      		RJMP START
                                  
 000022 1332                      RESET:	CPSE R19, R18
 000023 e13f                      		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
@@ -1729,6 +1730,22 @@ AVRASM ver. 2.2.7  D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm Tue 
                                  
 000057 9508                      	RET
                                  
+                                 TESTER: // Inputs an intial count and displays it using the positive and negative counters
+000058 e0f7                      	LDI R31, 7
+                                 	INC_LOOP: 
+000059 9533                      		INC R19
+00005a 95fa                      		DEC R31
+00005b f7e9                      		BRNE INC_LOOP
+00005c 953a                      		DEC R19
+00005d 953a                      		DEC R19
+00005e 953a                      		DEC R19
+00005f 940e 0043                 		CALL OUTPUT_DISPLAY
+000061 9508                      		RET
+                                 
+                                 			
+                                 			
+                                 		
+                                 
                                  
 
 
@@ -1749,27 +1766,27 @@ counted separately from r26..r31 here.
 "ATmega324PB" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   3 r17:   4 r18:   3 r19:  17 r20:   2 
+r13:   0 r14:   0 r15:   0 r16:   3 r17:   4 r18:   3 r19:  21 r20:   2 
 r21:   2 r22:   2 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 7 out of 35 (20.0%)
+r29:   0 r30:   0 r31:   2 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega324PB" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   1 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   2 cbi   :  10 cbr   :   0 
+brne  :   4 brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   4 cbi   :   8 cbr   :   0 
 clc   :   1 clh   :   1 cli   :   0 cln   :   1 clr   :   0 cls   :   1 
 clt   :   0 clv   :   0 clz   :   1 com   :   0 cp    :   1 cpc   :   0 
-cpi   :   0 cpse  :   1 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :   9 lds   :   0 lpm   :   0 lsl   :   0 
+cpi   :   0 cpse  :   1 dec   :   8 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   2 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  10 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   9 or    :   0 ori   :   0 out   :   5 pop   :   0 
-push  :   0 rcall :   4 ret   :   4 reti  :   0 rjmp  :   2 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :  12 sbic  :   2 sbis  :   0 
+push  :   0 rcall :   4 ret   :   5 reti  :   0 rjmp  :   3 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :  10 sbic  :   3 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   5 sbrs  :   5 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
@@ -1779,7 +1796,7 @@ Instructions used: 24 out of 113 (21.2%)
 "ATmega324PB" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000b0    176      0    176   32768   0.5%
+[.cseg] 0x000000 0x0000c4    196      0    196   32768   0.6%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

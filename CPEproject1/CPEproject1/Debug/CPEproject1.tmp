@@ -22,15 +22,18 @@
   <FILE>CPEproject1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <START><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>30</LINE></START>
-  <CHECK_SW1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>31</LINE></CHECK_SW1>
-  <RESET><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>48</LINE></RESET>
-  <OUTPUT_DISPLAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>84</LINE></OUTPUT_DISPLAY>
-  <CLEAR><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>62</LINE></CLEAR>
-  <CHECK_SW2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>40</LINE></CHECK_SW2>
-  <L2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>52</LINE></L2>
-  <DELAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>69</LINE></DELAY>
-  <L3><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>70</LINE></L3>
-  <L1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>71</LINE></L1>
+  <START><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>26</LINE></START>
+  <CHECK_SW1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>27</LINE></CHECK_SW1>
+  <RESET><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>49</LINE></RESET>
+  <OUTPUT_DISPLAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>85</LINE></OUTPUT_DISPLAY>
+  <CLEAR><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>63</LINE></CLEAR>
+  <CHECK_SW2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>36</LINE></CHECK_SW2>
+  <CHECK_SW3><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>44</LINE></CHECK_SW3>
+  <TESTER><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>113</LINE></TESTER>
+  <L2><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>53</LINE></L2>
+  <DELAY><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>70</LINE></DELAY>
+  <L3><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>71</LINE></L3>
+  <L1><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>72</LINE></L1>
+  <INC_LOOP><FILE>D:\work\CpE3150\CpE3150\CPEproject1\CPEproject1\main.asm</FILE><LINE>115</LINE></INC_LOOP>
  </LABELS>
 </ASSEMBLER_INFO>
