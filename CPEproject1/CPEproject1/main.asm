@@ -33,8 +33,8 @@ START:
 		INC R19 	;increments R19 when positive button is pressed
 		CP R19, R18	
 		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
-		CALL OUTPUT_DISPLAY	
 		RCALL CLEAR	;calls clear to clear all relevant status registers
+		CALL OUTPUT_DISPLAY	
 		RJMP CHECK_SW2
 
 	CHECK_SW2:
