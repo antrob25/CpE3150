@@ -32,23 +32,27 @@ START:
 		SBIC PINA,0 // positive button
 		INC R19 	;increments R19 when positive button is pressed
 		CP R19, R18	
-		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
+		BRSH RESET1	;calls Reset if R19 is greater than or equal to R18
+BACK1:	CALL OUTPUT_DISPLAY	
 		RCALL CLEAR	;calls clear to clear all relevant status registers
-		CALL OUTPUT_DISPLAY	
 		RJMP CHECK_SW2
 
 	CHECK_SW2:
 		SBIC PINA,1 //negative button
 		DEC R19		;decrements R19 when negative button is pressed
-		BRLT RESET	;calls Reset if R19 is less than 0
+		BRLT RESET2	;calls Reset if R19 is less than 0
 		RCALL CLEAR	;calls clear to clear all relevant status registers
-		CALL OUTPUT_DISPLAY	
+BACK2:	CALL OUTPUT_DISPLAY	
 		RJMP START	;jumps to the beginning of the input loop
 
-RESET:	CPSE R19, R18
-		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
+RESET1:	
 		LDI R19, 0	;sets R19 to 0
-		LDI R22, 100	;value to loop sound 100 times
+		RCALL BEEP
+		RJMP BACK1
+RESET2:
+		LDI R19, 0x1F
+		RCALL BEEP
+		RJMP BACK2
 	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
 		RCALL DELAY 	
 		NOP
