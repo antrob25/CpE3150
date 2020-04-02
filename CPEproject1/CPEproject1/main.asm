@@ -8,7 +8,7 @@
 
 LDI R16, 0
 LDI R17, 0xFF
-LDI R18, 0x1F
+LDI R18, 0x20
 LDI R19, 0
 SBI DDRE,4	;makes PE4 an output
 CBI PORTE,4	;clears bit PE4
@@ -48,7 +48,7 @@ START:
 		RJMP START
 
 RESET:	CPSE R19, R18
-		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F --what is this for?
+		LDI R19, 0x1F	;if R19 is not equal to R18 sets R19 to 0x1F
 		LDI R19, 0	;sets R19 to 0
 		LDI R22, 100	;value to loop sound 100 times
 	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
@@ -88,7 +88,7 @@ WATCH_TIMER: // Stop Watch function
 	CHECK_SW4:
 		CALL DELAY
 		INC R31
-		SBIC PINA, 3
+		SBIS PINA, 3
 		RJMP CHECK_SW4
 		RET
 	
