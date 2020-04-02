@@ -53,6 +53,7 @@ RESET2:
 		LDI R19, 0x1F
 		RCALL BEEP
 		RJMP BACK2
+BEEP:	LDI R22, 100
 	L2:	SBI PORTE, 4 // Sound loop ;sets PE4 to high--starts sound
 		RCALL DELAY 	
 		NOP
