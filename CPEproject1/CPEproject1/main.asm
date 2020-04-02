@@ -15,7 +15,7 @@ CBI PORTE,4	;clears bit PE4
 CBI DDRE,5	;makes PE5 an input
 SBI PORTE,5	;set bit PE5
 SBI DDRE,6	;makes PE6 an input
-SBI PORTE,6	;set bit PE6
+CBI PORTE,6	;set bit PE6
 OUT DDRA,R16
 OUT PORTA,R17
 OUT DDRD,R17	;Sets PortD as output
@@ -29,7 +29,7 @@ START:
 		INC R19 	;increments R19 when positive button is pressed
 		CP R19, R18	
 		BRSH RESET	;calls Reset if R19 is greater than or equal to R18
-		CALL OUTPUT_DISPLAY	
+		OUT PORTD, R19	
 		RCALL CLEAR	;calls clear to clear all relevant status registers
 		RJMP CHECK_SW2
 
@@ -37,13 +37,14 @@ START:
 		SBIC PINA,1 //negative button
 		DEC R19		;decrements R19 when negative button is pressed
 		BRLT RESET	;calls Reset if R19 is less than 0
-		CALL OUTPUT_DISPLAY
+		OUT PORTD, R19
 		RCALL CLEAR	;calls clear to clear all relevant status registers
 		RJMP CHECK_SW3	;jumps to the beginning of the input loop
 
 	CHECK_SW3:
 		SBIC PINA, 2
-		CALL TESTER
+		RCALL WATCH_TIMER
+		OUT PORTD, R31
 		RJMP START
 
 RESET:	CPSE R19, R18
@@ -82,45 +83,17 @@ DELAY:	LDI R20,10 // 500 microsecond delay for 1kHz frequency
 		NOP
 		RET
 
-OUTPUT_DISPLAY:
-	SBRC R19, 0
-	CBI PORTE,5
-	SBRS R19, 0
-	SBI PORTE,5
-
-	SBRC R19, 1
-	CBI PORTD,3
-	SBRS R19, 1
-	SBI PORTD,3
-
-	SBRC R19, 2
-	CBI PORTD,2
-	SBRS R19, 2
-	SBI PORTD,2
-
-	SBRC R19, 3
-	CBI PORTD,1
-	SBRS R19, 3
-	SBI PORTD,1
-
-	SBRC R19, 4
-	CBI PORTD,0
-	SBRS R19, 4
-	SBI PORTD,0
-
-	RET
-
-TESTER: // Inputs an intial count and displays it using the positive and negative counters
-	LDI R31, 7
-	INC_LOOP: 
-		INC R19
-		DEC R31
-		BRNE INC_LOOP
-		DEC R19
-		DEC R19
-		DEC R19
-		CALL OUTPUT_DISPLAY
+WATCH_TIMER: // Stop Watch function
+	LDI R31,0
+	CHECK_SW4:
+		CALL DELAY
+		INC R31
+		SBIC PINA, 3
+		RJMP CHECK_SW4
 		RET
+	
+
+		
 
 			
 			
